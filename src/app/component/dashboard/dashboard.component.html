@@ -1,0 +1,167 @@
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand"> Product Management</a>
+      <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addProduct" type="submit">Add Product</button>
+
+      <form [formGroup]="proDetail" class="d-flex" role="search" (submit)="searchProductById()">
+        <input class="form-control me-2" type="search" placeholder="Enter ID" aria-label="Search" formControlName="id">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  
+</nav><div  class="container-fluid" >
+      <div *ngIf="searchResult" class="search-results">
+      <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Product qunty</th>
+        <th scope="col">Product price</th>
+        <th scope="col">Product descrip</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr >
+        <td>{{searchResult.id}}</td>
+        <td> {{searchResult.name}}</td>
+        <td>{{searchResult.qunty}}</td>
+        <td>{{searchResult.price}}</td>
+        <td>{{searchResult.descrip}}</td>
+        <td>
+          <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#editproduct" (click)="editProduct(searchResult)">Edit</button>
+          <button type="button" class="btn btn-outline-danger" (click)="deleteProduct(searchResult)">Delete</button>
+        </td>
+      </tr>
+     
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-info mt-3" (click)="closeSearchResults()">Close Search Results</button>
+      </div>
+    
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Product qunty</th>
+        <th scope="col">Product price</th>
+        <th scope="col">Product descrip</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let Product of prodList">
+        <td>{{Product.id}}</td>
+        <td> {{Product.name}}</td>
+        <td>{{Product.qunty}}</td>
+        <td>{{Product.price}}</td>
+        <td>{{Product.descrip}}</td>
+        <td>
+          <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#editproduct" (click)="editProduct(Product)">Edit</button>
+          <button type="button" class="btn btn-outline-danger" (click)="deleteProduct(Product)">Delete</button>
+        </td>
+      </tr>
+     
+    </tbody>
+  </table>
+
+
+
+
+
+
+
+  <!-- Add Product Modal -->
+  <div class="modal fade" id="addProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+            <form [formGroup]="proDetail">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Product Name </label>
+                    <input type="text" formControlName="name" class="form-control" id="Productname" aria-describedby="emailHelp"> 
+                  </div>
+                <div class="mb-3">
+                  <label for="id" class="form-label">Product ID </label>
+                  <input type="text" formControlName="id" class="form-control" id="Productid" aria-describedby="emailHelp"> 
+                </div>
+                <div class="mb-3">
+                    <label for="qunty" class="form-label">Product Quntity </label>
+                    <input type="text" formControlName="qunty" class="form-control" id="Productqunty" aria-describedby="emailHelp"> 
+                  </div>
+                  <div class="mb-3">
+                    <label for="price" class="form-label">Product price </label>
+                    <input type="text" formControlName="price" class="form-control" id="Productprice" aria-describedby="emailHelp"> 
+                  </div>
+                  <div class="mb-3">
+                    <label for="descrip" class="form-label">Product Desription </label>
+                    <input type="text" formControlName="descrip" class="form-control" id="Productdescrip" aria-describedby="emailHelp"> 
+                  </div>
+               
+
+               
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addProduct()">Add Product</button>
+                  </div>
+              </form>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+
+  <!-- update product -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="editproduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Product  Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="proDetail">
+          <div class="mb-3">
+              <label for="name" class="form-label">Product Name </label>
+              <input type="text" formControlName="name" class="form-control" id="Productname" aria-describedby="emailHelp"> 
+            </div>
+          <div class="mb-3">
+            <label for="id" class="form-label">Product ID </label>
+            <input type="text" formControlName="id" class="form-control" id="Productid" aria-describedby="emailHelp"> 
+          </div>
+          <div class="mb-3">
+              <label for="qunty" class="form-label">Product Quntity </label>
+              <input type="text" formControlName="qunty" class="form-control" id="Productqunty" aria-describedby="emailHelp"> 
+            </div>
+            <div class="mb-3">
+              <label for="price" class="form-label">Product price </label>
+              <input type="text" formControlName="price" class="form-control" id="Productprice" aria-describedby="emailHelp"> 
+            </div>
+            <div class="mb-3">
+              <label for="descrip" class="form-label">Product Desription </label>
+              <input type="text" formControlName="descrip" class="form-control" id="Productdesc" aria-describedby="emailHelp"> 
+            </div>
+         
+
+         
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal"  (click)="updateProduct()">Update</button>
+            </div>
+        </form>
+      </div>
+     
+    </div>
+  </div>
+</div>
